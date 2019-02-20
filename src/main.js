@@ -1,5 +1,5 @@
 const filterContainer = document.querySelector('.main__filter');
-const boardOfTasks = document.querySelector('.board__tasks')
+const boardOfTasks = document.querySelector('.board__tasks');
 
 function createFilters() {
   filterContainer.innerHTML = `
@@ -11,7 +11,7 @@ function createFilters() {
     checked
   />
   <label for="filter__all" class="filter__label">
-    ALL <span class="filter__all-count">${Math.floor(Math.random() * (15 - 1) + 1)}</span></label
+    ALL <span class="filter__all-count"></span></label
   >
   <input
     type="radio"
@@ -20,7 +20,7 @@ function createFilters() {
     name="filter"
   />
   <label for="filter__overdue" class="filter__label"
-    >OVERDUE <span class="filter__overdue-count">${Math.floor(Math.random() * (15 - 1) + 1)}</span></label
+    >OVERDUE <span class="filter__overdue-count"></span></label
   >
   <input
     type="radio"
@@ -29,7 +29,7 @@ function createFilters() {
     name="filter"
   />
   <label for="filter__today" class="filter__label"
-    >TODAY <span class="filter__today-count">${Math.floor(Math.random() * (15 - 1) + 1)}</span></label
+    >TODAY <span class="filter__today-count"></span></label
   >
   <input
     type="radio"
@@ -38,7 +38,7 @@ function createFilters() {
     name="filter"
   />
   <label for="filter__favorites" class="filter__label"
-    >FAVORITES <span class="filter__favorites-count">${Math.floor(Math.random() * (15 - 1) + 1)}</span></label
+    >FAVORITES <span class="filter__favorites-count"></span></label
   >
   <input
     type="radio"
@@ -47,7 +47,7 @@ function createFilters() {
     name="filter"
   />
   <label for="filter__repeating" class="filter__label"
-    >Repeating <span class="filter__repeating-count">${Math.floor(Math.random() * (15 - 1) + 1)}</span></label
+    >Repeating <span class="filter__repeating-count"></span></label
   >
   <input
     type="radio"
@@ -56,7 +56,7 @@ function createFilters() {
     name="filter"
   />
   <label for="filter__tags" class="filter__label"
-    >Tags <span class="filter__tags-count">${Math.floor(Math.random() * (15 - 1) + 1)}</span></label
+    >Tags <span class="filter__tags-count"></span></label
   >
   <input
     type="radio"
@@ -65,11 +65,19 @@ function createFilters() {
     name="filter"
   />
   <label for="filter__archive" class="filter__label"
-    >ARCHIVE <span class="filter__archive-count">${Math.floor(Math.random() * (15 - 1) + 1)}</span></label
+    >ARCHIVE <span class="filter__archive-count"></span></label
   >`
 }
 
 createFilters();
+
+function randomNumber() {
+  const number = Math.floor(Math.random() * (15 - 1) + 1);
+  return number;
+}
+
+const counters = filterContainer.querySelectorAll('span[class$="count"]');
+counters.forEach(counter => counter.innerHTML = randomNumber());
 
 function createTask() {
   const task = document.createElement('article');
