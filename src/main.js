@@ -26,7 +26,7 @@ filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Repeating`, randomNu
 filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Tags`, randomNumber()));
 filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Archive`, randomNumber()));
 
-renderTasks(taskContainer);
+renderTasks();
 
 
 filterContainer.addEventListener(`change`, renderTasks);
