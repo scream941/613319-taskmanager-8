@@ -9,12 +9,6 @@ module.exports = {
     path: path.join(__dirname, `public`)
   },
   devtool: `source-map`,
-  // module: {
-  //   rules: [{
-  //     test: /\.js$/,
-  //     use: `babel-loder`
-  //   }]
-  // },
   plugins: [
     new HtmlWebpackPlugin({
       template: `./public/index.html`

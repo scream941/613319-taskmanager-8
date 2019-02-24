@@ -70,6 +70,7 @@ export default () => `<article class="card card--blue">
                   id="repeat-mo-5"
                   name="repeat"
                   value="mo"
+                  checked
                 />
                 <label class="card__repeat-day" for="repeat-mo-5"
                   >mo</label

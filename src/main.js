@@ -4,6 +4,7 @@ import makeTask from './make-task.js';
 
 const taskContainer = document.querySelector(`.board__tasks`);
 const filterContainer = document.querySelector(`.main__filter`);
+const filterNames = [`All`, `Overdue`, `Today`, `Favorites`, `Repeating`, `Tags`, `Archive`];
 
 
 function randomNumber() {
@@ -17,15 +18,18 @@ const renderTasks = () => {
   taskContainer.insertAdjacentHTML(`beforeend`, tasks.join(``));
 };
 
-filterContainer.innerHTML = ``;
-filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`All`, randomNumber(), true));
-filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Overdue`, randomNumber()));
-filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Today`, randomNumber()));
-filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Favorites`, randomNumber()));
-filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Repeating`, randomNumber()));
-filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Tags`, randomNumber()));
-filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`Archive`, randomNumber()));
+const renderFilters = () => {
+  filterContainer.innerHTML = ``;
+  for (let i = 0; i < filterNames.length; i++) {
+    if (i === 0) {
+      filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`${filterNames[i]}`, randomNumber()), true);
+    } else {
+      filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`${filterNames[i]}`, randomNumber()));
+    }
+  }
+};
 
+renderFilters();
 renderTasks();
 
 
