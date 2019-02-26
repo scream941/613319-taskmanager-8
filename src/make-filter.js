@@ -1,4 +1,4 @@
-export default (caption, count, checked = false) =>
+export default ({caption, count, checked = false}) =>
   `<input
           type="radio"
           id="filter__${caption}"

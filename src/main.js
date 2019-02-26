@@ -1,11 +1,20 @@
 import makeFilter from './make-filter.js';
 import makeTask from './make-task.js';
 
-
 const taskContainer = document.querySelector(`.board__tasks`);
 const filterContainer = document.querySelector(`.main__filter`);
-const filterNames = [`All`, `Overdue`, `Today`, `Favorites`, `Repeating`, `Tags`, `Archive`];
 
+const filterParams = [
+  {caption: `All`, checked: true},
+  {caption: `Overdue`},
+  {caption: `Today`},
+  {caption: `Favorites`},
+  {caption: `Repeating`},
+  {caption: `Tags`},
+  {caption: `Archive`}
+];
+
+filterParams.forEach((param) => param.count = randomNumber());
 
 function randomNumber() {
   const number = Math.round(Math.random() * (15 - 1) + 1);
@@ -18,15 +27,10 @@ const renderTasks = () => {
   taskContainer.insertAdjacentHTML(`beforeend`, tasks.join(``));
 };
 
+
 const renderFilters = () => {
   filterContainer.innerHTML = ``;
-  for (let i = 0; i < filterNames.length; i++) {
-    if (i === 0) {
-      filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`${filterNames[i]}`, randomNumber()), true);
-    } else {
-      filterContainer.insertAdjacentHTML(`beforeend`, makeFilter(`${filterNames[i]}`, randomNumber()));
-    }
-  }
+  filterContainer.insertAdjacentHTML(`beforeend`, filterParams.map(makeFilter).join(``));
 };
 
 renderFilters();
