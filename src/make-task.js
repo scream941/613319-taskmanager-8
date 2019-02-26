@@ -44,12 +44,8 @@ const color = (caption) =>
     >${caption}</label
   >`;
 
-const makeHtml = (array, func) => {
-  let a = ``;
-  for (let i = 0; i < array.length; i++) {
-    a += func(`${array[i]}`);
-  }
-  return a;
+const makeHtml = (components, mapper) => {
+  return components.map(mapper).join(``);
 };
 
 export default () => `<article class="card card--blue">
