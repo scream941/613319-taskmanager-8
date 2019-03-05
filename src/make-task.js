@@ -1,14 +1,11 @@
-const daysList = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
-const hashtagsList = [`repeat`, `cinema`, `entertaiment`];
-const colorsList = [`black`, `yellow`, `blue`, `green`, `pink`];
-
-const dayCheckbox = (caption) => `
+const dayCheckbox = ({caption, isRepating}) => `
   <input
     class="visually-hidden card__repeat-day-input"
     type="checkbox"
     id="repeat-${caption}-5"
     name="repeat"
     value="${caption}"
+    ${isRepating ? `checked` : ``}
   />
   <label class="card__repeat-day" for="repeat-${caption}-5"
     >${caption}</label
@@ -48,7 +45,7 @@ const makeHtml = (components, mapper) => {
   return components.map(mapper).join(``);
 };
 
-export default () => `<article class="card card--blue">
+export default (task) => `<article class="card card--blue">
   <form class="card__form" method="get">
     <div class="card__inner">
       <div class="card__control">
@@ -78,7 +75,7 @@ export default () => `<article class="card card--blue">
             class="card__text"
             placeholder="Start typing your text here..."
             name="text"
-          ></textarea>
+          >${task.title}</textarea>
         </label>
       </div>
 
@@ -114,14 +111,14 @@ export default () => `<article class="card card--blue">
 
             <fieldset class="card__repeat-days" disabled>
               <div class="card__repeat-days-inner">
-              ${makeHtml(daysList, dayCheckbox)}
+              ${makeHtml(task.repeatingDays, dayCheckbox)}
               </div>
             </fieldset>
           </div>
 
           <div class="card__hashtag">
             <div class="card__hashtag-list">
-              ${makeHtml(hashtagsList, hashtag)}
+              ${makeHtml([...task.tags], hashtag)}
             </div>
 
             <label>
@@ -146,7 +143,7 @@ export default () => `<article class="card card--blue">
         <div class="card__colors-inner">
           <h3 class="card__colors-title">Color</h3>
           <div class="card__colors-wrap">
-            ${makeHtml(colorsList, color)}
+            ${makeHtml(task.color, color)}
           </div>
         </div>
       </div>
