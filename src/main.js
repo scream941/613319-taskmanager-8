@@ -1,5 +1,6 @@
 import makeFilter from './make-filter.js';
 import makeTask from './make-task.js';
+import getTask from './taskData.js';
 
 const taskContainer = document.querySelector(`.board__tasks`);
 const filterContainer = document.querySelector(`.main__filter`);
@@ -21,10 +22,12 @@ function randomNumber() {
   return number;
 }
 
-const renderTasks = () => {
-  taskContainer.innerHTML = ``;
-  const tasks = new Array(randomNumber()).fill().map(makeTask);
-  taskContainer.insertAdjacentHTML(`beforeend`, tasks.join(``));
+const renderTasks = (dist, amount) => {
+  dist.innerHTML = ``;
+  dist.insertAdjacentHTML(`beforeend`, new Array(amount)
+    .fill(``)
+    .map(() => makeTask(getTask()))
+    .join(``));
 };
 
 
@@ -34,7 +37,7 @@ const renderFilters = () => {
 };
 
 renderFilters();
-renderTasks();
+renderTasks(taskContainer, 7);
 
 
 filterContainer.addEventListener(`change`, renderTasks);
