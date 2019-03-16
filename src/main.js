@@ -1,6 +1,7 @@
 import makeFilter from './make-filter.js';
 import makeTask from './make-task.js';
-import getTask from './taskData.js';
+import task from './taskData.js';
+import Task from './task.js';
 
 const taskContainer = document.querySelector(`.board__tasks`);
 const filterContainer = document.querySelector(`.main__filter`);
@@ -22,22 +23,25 @@ function randomNumber() {
   return number;
 }
 
-const renderTasks = (dist, amount) => {
-  dist.innerHTML = ``;
-  dist.insertAdjacentHTML(`beforeend`, new Array(amount)
-    .fill(``)
-    .map(() => makeTask(getTask()))
-    .join(``));
-};
-
-
 const renderFilters = () => {
   filterContainer.innerHTML = ``;
   filterContainer.insertAdjacentHTML(`beforeend`, filterParams.map(makeFilter).join(``));
 };
 
 renderFilters();
-renderTasks(taskContainer, 7);
+
+// const renderTasks = (dist, amount) => {
+//   dist.innerHTML = ``;
+//   dist.insertAdjacentHTML(`beforeend`, new Array(amount)
+//     .fill(``)
+//     .map(() => makeTask(getTask()))
+//     .join(``));
+// };
+// renderTasks(taskContainer, 7);
+
+taskContainer.innerHTML = ``;
+const firstTask = new Task(task);
+firstTask.render(taskContainer);
 
 
-filterContainer.addEventListener(`change`, renderTasks);
+// filterContainer.addEventListener(`change`, renderTasks);

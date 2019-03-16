@@ -111,7 +111,7 @@ export default (task) => `<article class="card card--blue">
 
             <fieldset class="card__repeat-days" disabled>
               <div class="card__repeat-days-inner">
-              ${makeHtml(task.repeatingDays, dayCheckbox)}
+              ${console.log(this._repeatingDays)}
               </div>
             </fieldset>
           </div>
