@@ -1,9 +1,9 @@
 import makeFilter from './make-filter.js';
-import makeTask from './make-task.js';
 import task from './taskData.js';
 import Task from './task.js';
+import TaskEdit from './task-edit.js';
 
-const taskContainer = document.querySelector(`.board__tasks`);
+const tasksContainer = document.querySelector(`.board__tasks`);
 const filterContainer = document.querySelector(`.main__filter`);
 
 const filterParams = [
@@ -30,18 +30,20 @@ const renderFilters = () => {
 
 renderFilters();
 
-// const renderTasks = (dist, amount) => {
-//   dist.innerHTML = ``;
-//   dist.insertAdjacentHTML(`beforeend`, new Array(amount)
-//     .fill(``)
-//     .map(() => makeTask(getTask()))
-//     .join(``));
-// };
-// renderTasks(taskContainer, 7);
+tasksContainer.innerHTML = ``;
+const taskComponent = new Task(task);
+const editTaskComponent = new TaskEdit(task);
 
-taskContainer.innerHTML = ``;
-const firstTask = new Task(task);
-firstTask.render(taskContainer);
+tasksContainer.appendChild(taskComponent.render());
 
+taskComponent.onEdit = () => {
+  editTaskComponent.render();
+  tasksContainer.replaceChild(editTaskComponent.element, taskComponent.element);
+  taskComponent.unrender();
+};
 
-// filterContainer.addEventListener(`change`, renderTasks);
+editTaskComponent.onSubmit = () => {
+  taskComponent.render();
+  tasksContainer.replaceChild(taskComponent.element, editTaskComponent.element);
+  editTaskComponent.unrender();
+};
