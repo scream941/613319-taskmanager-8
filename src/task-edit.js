@@ -1,4 +1,4 @@
-import {dayCheckbox, color, hashtag, makeHtml, createElement} from './utilites.js';
+import {dayCheckbox, color, hashtag, makeHtml} from './utilites.js';
 import Component from './component.js';
 
 
@@ -19,7 +19,9 @@ export default class TaskEdit extends Component {
   }
   _onSubmitButtonClick(evt) {
     evt.preventDefault();
-    typeof this._onSubmit === `function` && this._onSubmit();
+    if (typeof this._onSubmit === `function`) {
+      this._onSubmit();
+    }
   }
   set onSubmit(fn) {
     this._onSubmit = fn;

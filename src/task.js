@@ -1,4 +1,4 @@
-import {dayCheckbox, color, hashtag, makeHtml, createElement} from './utilites.js';
+import {hashtag, makeHtml} from './utilites.js';
 import Component from './component.js';
 
 export default class Task extends Component {
@@ -17,7 +17,9 @@ export default class Task extends Component {
     return Object.values(this._repeatingDays).some((day) => day.isRepeating === true);
   }
   _onEditButtonClick() {
-    typeof this._onEdit === `function` && this._onEdit();
+    if (typeof this._onEdit === `function`) {
+      this._onEdit();
+    }
   }
   set onEdit(fn) {
     this._onEdit = fn;

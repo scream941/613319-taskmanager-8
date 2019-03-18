@@ -51,9 +51,12 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
+const randomNumber = () => Math.round(Math.random() * (15 - 1) + 1);
+
 
 export {dayCheckbox};
 export {color};
 export {hashtag};
 export {makeHtml};
 export {createElement};
+export {randomNumber};
