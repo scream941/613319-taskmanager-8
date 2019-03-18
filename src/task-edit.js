@@ -1,24 +1,22 @@
 import {dayCheckbox, color, hashtag, makeHtml, createElement} from './utilites.js';
+import Component from './component.js';
 
-export default class TaskEdit {
+
+export default class TaskEdit extends Component {
   constructor(data) {
+    super();
     this._title = data.title;
     this._dueDate = data.dueDate;
     this._tags = data.tags;
     this._picture = data.picture;
     this._repeatingDays = data.repeatingDays;
     this._color = data.color;
-
-    this._element = null;
     this._onSubmit = null;
-    this._state = {
-    };
     this._onSubmitButtonClick = this._onSubmitButtonClick.bind(this);
   }
   _isRepeated() {
-    return Object.values(this._repeatingDays).some((it) => it.isRepeating === true);
+    return Object.values(this._repeatingDays).some((day) => day.isRepeating === true);
   }
-
   _onSubmitButtonClick(evt) {
     evt.preventDefault();
     typeof this._onSubmit === `function` && this._onSubmit();
@@ -26,10 +24,6 @@ export default class TaskEdit {
   set onSubmit(fn) {
     this._onSubmit = fn;
   }
-  get element() {
-    return this._element;
-  }
-
   get template() {
     return `
     <article class="card card--edit card--blue ${this._isRepeated() ? `card--repeat` : ``}">
@@ -112,24 +106,13 @@ export default class TaskEdit {
       </form>
     </article>`.trim();
   }
-
   setListener() {
-    this._element.querySelector(`.card__btn--edit`)
-    .addEventListener(`click`, this._onEditButtonClick);
+    this._element.querySelector(`.card__form`)
+        .addEventListener(`submit`, this._onSubmitButtonClick);
   }
 
   removeListener() {
-    this._element.querySelector(`.card__btn--edit`)
-    .removeEventListener(`click`, this._onEditButtonClick);
-  }
-
-  render(container) {
-    this._element = createElement(this.template);
-    this.setListener();
-    return this._element;
-  }
-  unrender() {
-    this.removeListener();
-    this._element = null;
+    this._element.querySelector(`.card__form`)
+        .removeEventListener(`submit`, this._onSubmitButtonClick);
   }
 }
