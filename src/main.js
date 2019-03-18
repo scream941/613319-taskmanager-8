@@ -1,4 +1,5 @@
 import makeFilter from './make-filter.js';
+import {randomNumber} from './utilites.js';
 import task from './taskData.js';
 import Task from './task.js';
 import TaskEdit from './task-edit.js';
@@ -16,12 +17,9 @@ const filterParams = [
   {caption: `Archive`}
 ];
 
-filterParams.forEach((param) => param.count = randomNumber());
-
-function randomNumber() {
-  const number = Math.round(Math.random() * (15 - 1) + 1);
-  return number;
-}
+filterParams.forEach((param) => {
+  param.count = randomNumber();
+});
 
 const renderFilters = () => {
   filterContainer.innerHTML = ``;

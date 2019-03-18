@@ -1,32 +1,29 @@
-import {dayCheckbox, color, hashtag, makeHtml, createElement} from './utilites.js';
+import {hashtag, makeHtml} from './utilites.js';
+import Component from './component.js';
 
-export default class Task {
+export default class Task extends Component {
   constructor(data) {
+    super();
     this._title = data.title;
     this._dueDate = data.dueDate;
     this._tags = data.tags;
     this._picture = data.picture;
     this._repeatingDays = data.repeatingDays;
     this._color = data.color;
-
-    this._element = null;
-    this._state = {
-    };
+    this._onEdit = null;
     this._onEditButtonClick = this._onEditButtonClick.bind(this);
   }
   _isRepeated() {
-    return Object.values(this._repeatingDays).some((it) => it.isRepeating === true);
+    return Object.values(this._repeatingDays).some((day) => day.isRepeating === true);
   }
   _onEditButtonClick() {
-    typeof this._onEdit === `function` && this._onEdit();
-  }
-  get element() {
-    return this._element;
+    if (typeof this._onEdit === `function`) {
+      this._onEdit();
+    }
   }
   set onEdit(fn) {
     this._onEdit = fn;
   }
-
   get template() {
     return `
     <article class="card card--blue ${this._isRepeated() ? `card--repeat` : ``}">
@@ -60,7 +57,6 @@ export default class Task {
           </div>
     </article>`.trim();
   }
-
   setListener() {
     this._element.querySelector(`.card__btn--edit`)
     .addEventListener(`click`, this._onEditButtonClick);
@@ -68,15 +64,5 @@ export default class Task {
   removeListener() {
     this._element.querySelector(`.card__btn--edit`)
           .removeEventListener(`click`, this._onEditButtonClick);
-  }
-
-  render() {
-    this._element = createElement(this.template);
-    this.setListener();
-    return this._element;
-  }
-  unrender() {
-    this.removeListener();
-    this._element = null;
   }
 }
