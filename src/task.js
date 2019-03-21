@@ -1,4 +1,3 @@
-import {hashtag, makeHtml} from './utilites.js';
 import Component from './component.js';
 
 export default class Task extends Component {
@@ -10,11 +9,12 @@ export default class Task extends Component {
     this._picture = data.picture;
     this._repeatingDays = data.repeatingDays;
     this._color = data.color;
+    this._mainColor = data.mainColor;
     this._onEdit = null;
     this._onEditButtonClick = this._onEditButtonClick.bind(this);
   }
   _isRepeated() {
-    return Object.values(this._repeatingDays).some((day) => day.isRepeating === true);
+    return Object.values(this._repeatingDays).some((day) => day === true);
   }
   _onEditButtonClick() {
     if (typeof this._onEdit === `function`) {
@@ -26,7 +26,7 @@ export default class Task extends Component {
   }
   get template() {
     return `
-    <article class="card card--blue ${this._isRepeated() ? `card--repeat` : ``}">
+    <article class="card card--${this._mainColor} ${this._isRepeated() ? `card--repeat` : ``}">
         <div class="card__inner">
           <div class="card__control">
             <button type="button" class="card__btn card__btn--edit">edit</button>
@@ -50,7 +50,22 @@ export default class Task extends Component {
             <div class="card__details">
               <div class="card__hashtag">
                 <div class="card__hashtag-list">
-                  ${makeHtml([...this._tags], hashtag)}
+                ${[...this._tags].map((tag) => (`
+                  <span class="card__hashtag-inner">
+                      <input
+                        type="hidden"
+                        name="hashtag"
+                        value="${tag}"
+                        class="card__hashtag-hidden-input"
+                      />
+                      <button type="button" class="card__hashtag-name">
+                        #${tag}
+                      </button>
+                      <button type="button" class="card__hashtag-delete">
+                        delete
+                      </button>
+                    </span>
+                  `)).join(``)}
                 </div>
               </div>
             </div>
@@ -64,5 +79,11 @@ export default class Task extends Component {
   removeListener() {
     this._element.querySelector(`.card__btn--edit`)
           .removeEventListener(`click`, this._onEditButtonClick);
+  }
+  update(data) {
+    this._title = data.title;
+    this._tags = data.tags;
+    this._repeatingDays = data.repeatingDays;
+    this._mainColor = data.mainColor;
   }
 }
