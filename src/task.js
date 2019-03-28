@@ -1,4 +1,6 @@
 import Component from './component.js';
+import moment from 'moment';
+
 
 export default class Task extends Component {
   constructor(data) {
@@ -48,6 +50,7 @@ export default class Task extends Component {
 
           <div class="card__settings">
             <div class="card__details">
+            <div class="card__dates">${moment(`23.09.2019 09:00`, `DD.MM.YYYY hh:mm`).format(`DD MMMM hh:mm`)}</div>
               <div class="card__hashtag">
                 <div class="card__hashtag-list">
                 ${[...this._tags].map((tag) => (`

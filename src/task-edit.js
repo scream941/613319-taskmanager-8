@@ -1,4 +1,5 @@
 import Component from './component.js';
+import flatpickr from 'flatpickr';
 
 
 export default class TaskEdit extends Component {
@@ -197,6 +198,14 @@ export default class TaskEdit extends Component {
         .addEventListener(`click`, this._onChangeDate);
     this._element.querySelector(`.card__repeat-toggle`)
         .addEventListener(`click`, this._onChangeRepeated);
+    flatpickr(
+        this._element.querySelector(`.card__date`),
+        {altInput: true, altFormat: `j F`, dateFormat: `j F`}
+    );
+    flatpickr(
+        this._element.querySelector(`.card__time`),
+        {enableTime: true, noCalendar: true, dateFormat: `H:i`}
+    );
   }
 
   removeListener() {
