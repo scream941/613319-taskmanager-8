@@ -1,5 +1,8 @@
 const path = require(`path`);
 const HtmlWebpackPlugin = require(`html-webpack-plugin`);
+const flatpickr = require(`flatpickr`);
+const moment = require(`moment`);
+
 
 module.exports = {
   mode: `development`,

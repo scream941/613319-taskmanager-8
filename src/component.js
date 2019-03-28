@@ -25,4 +25,5 @@ export default class Component {
     this.removeListener();
     this._element = null;
   }
+  update() {}
 }
