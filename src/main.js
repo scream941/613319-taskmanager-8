@@ -1,40 +1,25 @@
-import makeFilter from './make-filter.js';
-import {randomNumber} from './utilites.js';
-import task from './taskData.js';
+import taskData from './taskData.js';
+import filterData from './filterData.js';
 import Task from './task.js';
 import TaskEdit from './task-edit.js';
+import Filter from './filter.js';
+
 
 const tasksContainer = document.querySelector(`.board__tasks`);
 const filterContainer = document.querySelector(`.main__filter`);
 
-const filterParams = [
-  {caption: `All`, checked: true},
-  {caption: `Overdue`},
-  {caption: `Today`},
-  {caption: `Favorites`},
-  {caption: `Repeating`},
-  {caption: `Tags`},
-  {caption: `Archive`}
-];
+filterContainer.innerHTML = ``;
+const filterComponent = new Filter(filterData);
+filterContainer.appendChild(filterComponent.render());
 
-filterParams.forEach((param) => {
-  param.count = randomNumber();
-});
-
-const renderFilters = () => {
-  filterContainer.innerHTML = ``;
-  filterContainer.insertAdjacentHTML(`beforeend`, filterParams.map(makeFilter).join(``));
-};
-
-renderFilters();
 
 const renderTasks = () => {
 
   tasksContainer.innerHTML = ``;
 
   for (let i = 0; i < 7; i++) {
-    const taskComponent = new Task(task);
-    const editTaskComponent = new TaskEdit(task);
+    const taskComponent = new Task(taskData);
+    const editTaskComponent = new TaskEdit(taskData);
 
 
     taskComponent.onEdit = () => {
