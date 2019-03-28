@@ -13,9 +13,12 @@ export default class TaskEdit extends Component {
     this._color = data.color;
     this._mainColor = data.mainColor;
     this._onSubmit = null;
+    this._onDelete = null;
     this._onSubmitButtonClick = this._onSubmitButtonClick.bind(this);
+    this._onDeleteButtonClick = this._onDeleteButtonClick.bind(this);
     this._state.isDate = false;
     this._state.isRepeated = false;
+    this._state.isDeleted = false;
     this._onChangeDate = this._onChangeDate.bind(this);
     this._onChangeRepeated = this._onChangeRepeated.bind(this);
   }
@@ -56,6 +59,12 @@ export default class TaskEdit extends Component {
     }
     this.update(newData);
   }
+  _onDeleteButtonClick(evt) {
+    if (typeof this._onDelete === `function`) {
+      this._state.isDeleted = true;
+      this._onDelete();
+    }
+  }
   _onChangeDate() {
     this._state.isDate = !this._state.isDate;
     this.removeListener();
@@ -73,6 +82,9 @@ export default class TaskEdit extends Component {
   }
   set onSubmit(fn) {
     this._onSubmit = fn;
+  }
+  set onDelete(fn) {
+    this._onDelete = fn;
   }
   get template() {
     return `
@@ -206,6 +218,8 @@ export default class TaskEdit extends Component {
         this._element.querySelector(`.card__time`),
         {enableTime: true, noCalendar: true, dateFormat: `H:i`}
     );
+    this._element.querySelector(`.card__delete`)
+        .addEventListener(`click`, this._onDeleteButtonClick);
   }
 
   removeListener() {
@@ -215,6 +229,8 @@ export default class TaskEdit extends Component {
         .removeEventListener(`click`, this._onChangeDate);
     this._element.querySelector(`.card__repeat-toggle`)
         .removeEventListener(`click`, this._onChangeRepeated);
+    this._element.querySelector(`.card__delete`)
+        .removeEventListener(`click`, this._onDeleteButtonClick);
   }
   update(data) {
     this._title = data.title;

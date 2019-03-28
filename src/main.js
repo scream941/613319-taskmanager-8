@@ -28,27 +28,40 @@ const renderFilters = () => {
 
 renderFilters();
 
-tasksContainer.innerHTML = ``;
-const taskComponent = new Task(task);
-const editTaskComponent = new TaskEdit(task);
+const renderTasks = () => {
 
-tasksContainer.appendChild(taskComponent.render());
+  tasksContainer.innerHTML = ``;
 
-taskComponent.onEdit = () => {
-  editTaskComponent.render();
-  tasksContainer.replaceChild(editTaskComponent.element, taskComponent.element);
-  taskComponent.unrender();
+  for (let i = 0; i < 7; i++) {
+    const taskComponent = new Task(task);
+    const editTaskComponent = new TaskEdit(task);
+
+
+    taskComponent.onEdit = () => {
+      editTaskComponent.render();
+      tasksContainer.replaceChild(editTaskComponent.element, taskComponent.element);
+      taskComponent.unrender();
+    };
+
+    editTaskComponent.onDelete = () => {
+      tasksContainer.removeChild(editTaskComponent.element);
+      editTaskComponent.unrender();
+    };
+
+    editTaskComponent.onSubmit = (newObject) => {
+      task.title = newObject.title;
+      task.tags = newObject.tags;
+      task.mainColor = newObject.mainColor;
+      task.repeatingDays = newObject.repeatingDays;
+      task.dueDate = newObject.dueDate;
+
+      taskComponent.update(task);
+      taskComponent.render();
+      tasksContainer.replaceChild(taskComponent.element, editTaskComponent.element);
+      editTaskComponent.unrender();
+    };
+    tasksContainer.appendChild(taskComponent.render());
+  }
 };
 
-editTaskComponent.onSubmit = (newObject) => {
-  task.title = newObject.title;
-  task.tags = newObject.tags;
-  task.mainColor = newObject.mainColor;
-  task.repeatingDays = newObject.repeatingDays;
-  task.dueDate = newObject.dueDate;
-
-  taskComponent.update(task);
-  taskComponent.render();
-  tasksContainer.replaceChild(taskComponent.element, editTaskComponent.element);
-  editTaskComponent.unrender();
-};
+renderTasks();
