@@ -17,18 +17,20 @@ export default class Filter extends Component {
     this._onFilter = fn;
   }
   get template() {
-    return `
-    ${Object.entries(this._title).map((filter) => {
-    const filterName = filter[0];
-    const filterCheck = filter[1];
-    return `<input type="radio" id="filter__${filterName}" class="filter__input
-      visually-hidden" name="filter" ${filterCheck ? `checked` : ``}/>
-            <label for="filter__${filterName}" class="filter__label">
-            ${filterName}
-            <span class="filter__${filterName}-count">${this._count}</span>
-            </label>
-      `;
+    return `<div class="container filter">
+    ${Object.entries(this._title).map(([name, check]) => {
+    return `<input type="radio" id="filter__${name}" class="filter__input visually-hidden" name="filter" ${check ? `checked` : ``}/>
+            <label for="filter__${name}" class="filter__label">
+              ${name} <span class="filter__${name}-count">${this._count}</span></label>`;
   }).join(``)}
-    `;
+    </div>`;
+  }
+  setListener() {
+    this._element.querySelector(`.filter__input`)
+      .addEventListener(`change`, this._onFilter);
+  }
+  removeListener() {
+    this._element.querySelector(`.filter__input`)
+      .removeEventListener(`change`, this._onFilter);
   }
 }

@@ -132,9 +132,7 @@ export default class TaskEdit extends Component {
 
                 <fieldset class="card__repeat-days" ${!this._state.isRepeated && `disabled`}>
                   <div class="card__repeat-days-inner">
-                  ${Object.entries(this._repeatingDays).map((day) => {
-    const caption = day[0];
-    const isRepeated = day[1];
+                  ${Object.entries(this._repeatingDays).map(([caption, isRepeated]) => {
     return `<input class="visually-hidden card__repeat-day-input" type="checkbox" id="repeat-${caption}-5"
                         name="repeat" value="${caption}" ${isRepeated && `checked`}/>
                       <label class="card__repeat-day" for="repeat-${caption}-5">${caption}</label>`;

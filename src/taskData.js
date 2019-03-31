@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   title: [
     `Изучить теорию`,
     `Сделать домашку`,
@@ -30,4 +30,4 @@ export default {
   ],
   isFavorite: false,
   isDone: false,
-};
+});

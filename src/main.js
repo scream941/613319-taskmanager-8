@@ -10,16 +10,23 @@ const filterContainer = document.querySelector(`.main__filter`);
 
 filterContainer.innerHTML = ``;
 const filterComponent = new Filter(filterData);
+filterComponent.onFilter = () => {
+};
 filterContainer.appendChild(filterComponent.render());
 
+
+let tasks = [];
+for (let i = 0; i < 7; i++) {
+  tasks.push(taskData());
+}
 
 const renderTasks = () => {
 
   tasksContainer.innerHTML = ``;
 
-  for (let i = 0; i < 7; i++) {
-    const taskComponent = new Task(taskData);
-    const editTaskComponent = new TaskEdit(taskData);
+  for (const task of tasks) {
+    const taskComponent = new Task(task);
+    const editTaskComponent = new TaskEdit(task);
 
 
     taskComponent.onEdit = () => {
